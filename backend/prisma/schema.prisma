@@ -44,10 +44,10 @@ model Atividade {
   tarefaId String
   estudante Estudante @relation(fields: [estudanteId], references: [id])
   estudanteId String
-  data DateTime
-  horaAgendamentoInicio String
-  horaAgendamentoTermino String
-  horaInicio String?
-  horaTermino String?
+  data DateTime @db.Date
+  horaAgendamentoInicio DateTime @db.Time
+  horaAgendamentoTermino DateTime @db.Time
+  horaInicio DateTime? @db.Time
+  horaTermino DateTime? @db.Time
 }
 

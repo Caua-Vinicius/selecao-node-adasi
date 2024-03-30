@@ -1,10 +1,12 @@
 import { PrismaService } from 'src/prisma.service';
-import { Tarefa } from '@prisma/client';
+import { Prisma, Tarefa } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class TarefaService {
   constructor(private prisma: PrismaService) {}
 
-  async getALlTarefas(): Promise<Tarefa[]> {
+  async getAllTarefas(): Promise<Tarefa[]> {
     return this.prisma.tarefa.findMany();
   }
 
@@ -12,7 +14,7 @@ export class TarefaService {
     return this.prisma.tarefa.findUnique({ where: { id: String(id) } });
   }
 
-  async createTarefa(data: Tarefa): Promise<Tarefa> {
+  async createTarefa(data: Prisma.TarefaCreateInput): Promise<Tarefa> {
     return this.prisma.tarefa.create({ data });
   }
 

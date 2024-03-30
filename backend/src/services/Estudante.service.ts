@@ -1,6 +1,8 @@
-import { Estudante } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
+import { Estudante, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
+@Injectable()
 export class EstudanteService {
   constructor(private prisma: PrismaService) {}
 
@@ -14,7 +16,7 @@ export class EstudanteService {
     });
   }
 
-  async createEstudante(data: Estudante): Promise<Estudante> {
+  async createEstudante(data: Prisma.EstudanteCreateInput): Promise<Estudante> {
     return this.prisma.estudante.create({ data });
   }
 

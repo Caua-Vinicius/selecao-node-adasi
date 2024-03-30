@@ -1,6 +1,8 @@
 import { PrismaService } from 'src/prisma.service';
-import { Atividade } from '@prisma/client';
+import { Atividade, Prisma } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class AtividadeService {
   constructor(private prisma: PrismaService) {}
 
@@ -12,7 +14,7 @@ export class AtividadeService {
     return this.prisma.atividade.findUnique({ where: { id: String(id) } });
   }
 
-  async createAtividade(data: Atividade): Promise<Atividade> {
+  async createAtividade(data: Prisma.AtividadeCreateInput): Promise<Atividade> {
     return this.prisma.atividade.create({ data });
   }
 
@@ -23,7 +25,20 @@ export class AtividadeService {
     });
   }
 
-  async deleteAtvidade(id: string): Promise<Atividade> {
+  async deleteAtividade(id: string): Promise<Atividade> {
     return this.prisma.atividade.delete({ where: { id: String(id) } });
+  }
+
+  async startAtividade(id: string, horaInicio: string): Promise<Atividade> {
+    return this.prisma.atividade.update({
+      where: { id },
+      data: { horaInicio: new Date(horaInicio) },
+    });
+  }
+  async endAtividade(id: string, horaTermino: string): Promise<Atividade> {
+    return this.prisma.atividade.update({
+      where: { id },
+      data: { horaTermino: new Date(horaTermino) },
+    });
   }
 }
