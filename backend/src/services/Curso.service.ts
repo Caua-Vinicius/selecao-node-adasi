@@ -28,10 +28,10 @@ export class CursoService {
     });
   }
 
-  async updateCurso(id: string, data: Curso): Promise<Curso> {
+  async updateCurso(id: string, nome: string): Promise<Curso> {
     return this.prisma.curso.update({
       where: { id: String(id) },
-      data: { nome: data.nome },
+      data: { nome: nome },
     });
   }
 }

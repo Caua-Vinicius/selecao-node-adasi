@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Estudante, Prisma } from '@prisma/client';
+import { Estudante } from '@prisma/client';
+import { EstudanteCreateDto } from 'src/Dtos/Estudante-Create.dto';
+import { EstudanteUpdateDto } from 'src/Dtos/Estudante-Update.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -16,11 +18,14 @@ export class EstudanteService {
     });
   }
 
-  async createEstudante(data: Prisma.EstudanteCreateInput): Promise<Estudante> {
+  async createEstudante(data: EstudanteCreateDto): Promise<Estudante> {
     return this.prisma.estudante.create({ data });
   }
 
-  async updateEstudante(id: string, data: Estudante): Promise<Estudante> {
+  async updateEstudante(
+    id: string,
+    data: EstudanteUpdateDto,
+  ): Promise<Estudante> {
     return this.prisma.estudante.update({
       where: { id: String(id) },
       data,

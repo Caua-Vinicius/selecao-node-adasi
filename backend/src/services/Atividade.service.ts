@@ -1,6 +1,7 @@
 import { PrismaService } from 'src/prisma.service';
 import { Atividade, Prisma } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
+import { AtividadeUpdateDto } from 'src/Dtos/Atividade-Update.dto';
 
 @Injectable()
 export class AtividadeService {
@@ -18,7 +19,10 @@ export class AtividadeService {
     return this.prisma.atividade.create({ data });
   }
 
-  async updateAtividade(id: string, data: Atividade): Promise<Atividade> {
+  async updateAtividade(
+    id: string,
+    data: AtividadeUpdateDto,
+  ): Promise<Atividade> {
     return this.prisma.atividade.update({
       where: { id: String(id) },
       data,

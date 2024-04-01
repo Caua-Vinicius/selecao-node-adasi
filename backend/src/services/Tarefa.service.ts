@@ -1,6 +1,7 @@
 import { PrismaService } from 'src/prisma.service';
 import { Prisma, Tarefa } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
+import { TarefaUpdateDto } from 'src/Dtos/Tarefa-Update.dto';
 
 @Injectable()
 export class TarefaService {
@@ -18,7 +19,7 @@ export class TarefaService {
     return this.prisma.tarefa.create({ data });
   }
 
-  async updateTarefa(id: string, data: Tarefa): Promise<Tarefa> {
+  async updateTarefa(id: string, data: TarefaUpdateDto): Promise<Tarefa> {
     return this.prisma.tarefa.update({
       where: { id: String(id) },
       data,

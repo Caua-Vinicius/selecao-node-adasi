@@ -6,8 +6,12 @@ import {
   Param,
   Post,
   Put,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { Prisma, Tarefa } from '@prisma/client';
+import { Tarefa } from '@prisma/client';
+import { TarefaCreateDto } from 'src/Dtos/Tarefa-Create.dto';
+import { TarefaUpdateDto } from 'src/Dtos/Tarefa-Update.dto';
 import { TarefaService } from 'src/services/Tarefa.service';
 
 @Controller('api')
@@ -19,27 +23,28 @@ export class TarefaController {
     return this.tarefaService.getAllTarefas();
   }
 
+  @UsePipes(new ValidationPipe({ transform: true }))
   @Get('/tarefa/:id')
   async getTarefa(@Param('id') id: string): Promise<Tarefa> {
     return this.tarefaService.getTarefa(id);
   }
 
   @Post('/tarefa')
-  async postTarefa(
-    @Body() postData: Prisma.TarefaCreateInput,
-  ): Promise<Tarefa> {
+  async postTarefa(@Body() postData: TarefaCreateDto): Promise<Tarefa> {
     return this.tarefaService.createTarefa(postData);
   }
 
+  @UsePipes(new ValidationPipe({ transform: true }))
   @Delete('/tarefa/:id')
   async deleteTarefa(@Param('id') id: string): Promise<Tarefa> {
     return this.tarefaService.deleteTarefa(id);
   }
 
+  @UsePipes(new ValidationPipe({ transform: true }))
   @Put('/tarefa/:id')
   async updateTarefa(
     @Param('id') id: string,
-    @Body() putData,
+    @Body() putData: TarefaUpdateDto,
   ): Promise<Tarefa> {
     return this.tarefaService.updateTarefa(id, putData);
   }
