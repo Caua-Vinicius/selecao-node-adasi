@@ -11,6 +11,8 @@ import { AtividadeUpdateDto } from 'src/Dtos/Atividade-Update.dto';
 export class AtividadeService {
   constructor(private prisma: PrismaService) {}
 
+  //BASIC ROUTES API
+
   async getAllAtividades(): Promise<Atividade[]> {
     return this.prisma.atividade.findMany();
   }
@@ -42,6 +44,10 @@ export class AtividadeService {
   async deleteAtividade(id: string): Promise<Atividade> {
     return this.prisma.atividade.delete({ where: { id: String(id) } });
   }
+
+  //REGRAS DE AGENDAMENTO E ROTAS DE START E FINISH ATIVIDADE
+
+  //      START
 
   async startAtividade(id: string, horaInicio: string): Promise<Atividade> {
     // Verificar a tolerância de 15 minutos para mais ou para menos
@@ -77,10 +83,14 @@ export class AtividadeService {
     });
   }
 
-  async endAtividade(id: string, horaTermino: string): Promise<Atividade> {
+  //      FINISH
+
+  async finishAtividade(id: string, horaTermino: string): Promise<Atividade> {
     const Atividade = await this.prisma.atividade.findUnique({
       where: { id },
     });
+
+    //Checagem da existencia de atividade, se já foi finalizada, e se ja foi inicializada
 
     if (!Atividade) {
       throw new NotFoundException('Atividade não encontrada');
@@ -97,6 +107,8 @@ export class AtividadeService {
     const horaInicio = Atividade.horaInicio;
     const horaTerminoAtividade = new Date(horaTermino);
     const SeisHorasMilisegundos = 6 * 60 * 60 * 1000;
+
+    //Validação do horario de termino
 
     if (horaTerminoAtividade < horaInicio) {
       throw new BadRequestException(

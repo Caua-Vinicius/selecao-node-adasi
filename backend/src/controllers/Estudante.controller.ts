@@ -18,14 +18,14 @@ import { EstudanteService } from 'src/services/Estudante.service';
 export class EstudanteController {
   constructor(private readonly estudanteService: EstudanteService) {}
 
-  // GET ALL
+  // GET ALL ESTUDANTES
 
   @Get('/estudantes')
   async getAllEstudantes(): Promise<Estudante[]> {
     return this.estudanteService.getAllEstudantes();
   }
 
-  // GET UNIQUE BY ID
+  // GET ESTUDANTE BY ID
 
   @UsePipes(new ValidationPipe({ transform: true }))
   @Get('/estudante/:id')
@@ -33,7 +33,7 @@ export class EstudanteController {
     return this.estudanteService.getEstudante(id);
   }
 
-  // CREATE
+  // CREATE ESTUDANTE
 
   @Post('/estudante')
   async postEstudante(
@@ -42,7 +42,7 @@ export class EstudanteController {
     return this.estudanteService.createEstudante(postData);
   }
 
-  // DELETE
+  // DELETE ESTUDANTE BY ID
 
   @UsePipes(new ValidationPipe({ transform: true }))
   @Delete('/estudante/:id')
@@ -50,7 +50,7 @@ export class EstudanteController {
     return this.estudanteService.deleteEstudante(id);
   }
 
-  // UPDATE
+  // UPDATE ESTUDANTE BY ID
 
   @UsePipes(new ValidationPipe({ transform: true }))
   @Put('/estudante/:id')

@@ -8,6 +8,8 @@ import { PrismaService } from 'src/prisma.service';
 export class EstudanteService {
   constructor(private prisma: PrismaService) {}
 
+  //BASIC ROUTES API
+
   async getAllEstudantes(): Promise<Estudante[]> {
     return this.prisma.estudante.findMany({ include: { curso: true } });
   }

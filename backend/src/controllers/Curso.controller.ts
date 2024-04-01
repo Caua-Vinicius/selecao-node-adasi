@@ -18,10 +18,14 @@ import { CursoUpdateDto } from 'src/Dtos/Curso-Update.dto';
 export class CursoController {
   constructor(private readonly cursoService: CursoService) {}
 
+  //GET ALL CURSOS
+
   @Get('/cursos')
   async getAllCursos(): Promise<cursoModel[]> {
     return this.cursoService.getAllCursos();
   }
+
+  //GET CURSO BY ID
 
   @UsePipes(new ValidationPipe({ transform: true }))
   @Get('/curso/:id')
@@ -29,16 +33,22 @@ export class CursoController {
     return this.cursoService.getCurso(id);
   }
 
+  //CREATE CURSO
+
   @Post('/curso')
   async createCurso(@Body() cursoData: CursoCreateDto): Promise<cursoModel> {
     return this.cursoService.createCurso(cursoData);
   }
+
+  //DELETE CURSO BY ID
 
   @UsePipes(new ValidationPipe({ transform: true }))
   @Delete('/curso/:id')
   async deleteCurso(@Param('id') id: string): Promise<cursoModel> {
     return this.cursoService.deleteCurso(id);
   }
+
+  //UPDATE CURSO BY ID
 
   @Put('/curso/:id')
   async updateCurso(

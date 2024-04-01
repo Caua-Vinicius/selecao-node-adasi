@@ -7,6 +7,8 @@ import { TarefaUpdateDto } from 'src/Dtos/Tarefa-Update.dto';
 export class TarefaService {
   constructor(private prisma: PrismaService) {}
 
+  //BASIC ROUTES API
+
   async getAllTarefas(): Promise<Tarefa[]> {
     return this.prisma.tarefa.findMany();
   }

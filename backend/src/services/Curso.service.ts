@@ -6,6 +6,8 @@ import { Curso, Prisma } from '@prisma/client';
 export class CursoService {
   constructor(private prisma: PrismaService) {}
 
+  //BASIC ROUTES API
+
   async createCurso(data: Prisma.CursoCreateInput): Promise<Curso> {
     return this.prisma.curso.create({
       data,

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { Atividade } from '@prisma/client';
 import { AtividadeCreateDto } from 'src/Dtos/Atividade-Create.dto';
-import { AtividadeEndDto } from 'src/Dtos/Atividade-End.dto';
+import { AtividadeFinishDto } from 'src/Dtos/Atividade-Finish.dto';
 import { AtividadeStartDto } from 'src/Dtos/Atividade-Start.dto';
 import { AtividadeUpdateDto } from 'src/Dtos/Atividade-Update.dto';
 import { AtividadeService } from 'src/services/Atividade.service';
@@ -20,16 +20,22 @@ import { AtividadeService } from 'src/services/Atividade.service';
 export class AtividadeController {
   constructor(private readonly atividadeService: AtividadeService) {}
 
+  //GETALL
+
   @Get('/atividades')
   async getAllAtividades(): Promise<Atividade[]> {
     return this.atividadeService.getAllAtividades();
   }
+
+  //GET ATIVIDADE BY ID
 
   @UsePipes(new ValidationPipe({ transform: true }))
   @Get('/atividade/:id')
   async getAtividade(@Param('id') id: string): Promise<Atividade> {
     return this.atividadeService.getAtividade(id);
   }
+
+  //CREATE ATIVIDADE
 
   @Post('/atividade')
   async postAtividade(
@@ -38,11 +44,15 @@ export class AtividadeController {
     return this.atividadeService.createAtividade(postData);
   }
 
+  //DELETE ATIVIDADE BY ID
+
   @UsePipes(new ValidationPipe({ transform: true }))
   @Delete('/atividade/:id')
   async deleteAtividade(@Param('id') id: string): Promise<Atividade> {
     return this.atividadeService.deleteAtividade(id);
   }
+
+  //UPDATE ATIVIDADE BY ID
 
   @UsePipes(new ValidationPipe({ transform: true }))
   @Put('/atividade/:id')
@@ -53,6 +63,8 @@ export class AtividadeController {
     return this.atividadeService.updateAtividade(id, putData);
   }
 
+  //INICIAR ATIVIDADE
+
   @UsePipes(new ValidationPipe({ transform: true }))
   @Put('/atividade/:id/start')
   startAtividade(
@@ -62,12 +74,14 @@ export class AtividadeController {
     return this.atividadeService.startAtividade(id, atividadeDto.horaInicio);
   }
 
+  //TERMINAR ATIVIDADE
+
   @UsePipes(new ValidationPipe({ transform: true }))
   @Put('/atividade/:id/end')
-  endAtividade(
+  finishAtividade(
     @Param('id') id: string,
-    @Body() atividadeDto: AtividadeEndDto,
+    @Body() atividadeDto: AtividadeFinishDto,
   ): Promise<Atividade> {
-    return this.atividadeService.endAtividade(id, atividadeDto.horaTermino);
+    return this.atividadeService.finishAtividade(id, atividadeDto.horaTermino);
   }
 }
