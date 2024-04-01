@@ -77,7 +77,7 @@ export class AtividadeController {
   //TERMINAR ATIVIDADE
 
   @UsePipes(new ValidationPipe({ transform: true }))
-  @Put('/atividade/:id/end')
+  @Put('/atividade/:id/finish')
   finishAtividade(
     @Param('id') id: string,
     @Body() atividadeDto: AtividadeFinishDto,
