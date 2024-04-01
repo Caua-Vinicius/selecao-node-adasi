@@ -16,6 +16,9 @@ export class AtividadeService {
   }
 
   async createAtividade(data: Prisma.AtividadeCreateInput): Promise<Atividade> {
+    //Apenas podem ser definidas nas suas proprias rotas
+    data.horaInicio = null;
+    data.horaTermino = null;
     return this.prisma.atividade.create({ data });
   }
 
@@ -23,6 +26,9 @@ export class AtividadeService {
     id: string,
     data: AtividadeUpdateDto,
   ): Promise<Atividade> {
+    //Apenas podem ser definidas nas suas proprias rotas
+    data.horaInicio = null;
+    data.horaTermino = null;
     return this.prisma.atividade.update({
       where: { id: String(id) },
       data,

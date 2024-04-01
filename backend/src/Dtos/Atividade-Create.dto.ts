@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class AtividadeCreateDto {
   @IsNotEmpty()
-  data: string | Date;
+  data: string;
 
   @IsNotEmpty()
   @IsString()
@@ -17,12 +17,6 @@ export class AtividadeCreateDto {
 
   @IsNotEmpty()
   horaAgendamentoTermino: string | Date;
-
-  @IsOptional()
-  horaInicio?: string | Date;
-
-  @IsOptional()
-  horaTermino?: string | Date;
 
   estudante;
   tarefa;

@@ -21,11 +21,6 @@ export class AtividadeUpdateDto {
   @IsString()
   horaAgendamentoTermino?: string;
 
-  @IsOptional()
-  @IsString()
-  horaInicio?: string;
-
-  @IsOptional()
-  @IsString()
-  horaTermino?: string;
+  horaInicio;
+  horaTermino;
 }
